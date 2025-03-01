@@ -5,6 +5,8 @@ require("express-async-errors");
 
 const session = require("express-session");
 
+const csrf = require("./middleware/csrf")
+
 const MongoDBStore = require("connect-mongodb-session")(session);
 const url = process.env.MONGO_URI;
 
@@ -30,7 +32,10 @@ const sessionParms = {
   cookie: { secure: false, sameSite: "strict" },
 };
 
+let csrf_development_mode = true;
+
 if (app.get("env") === "production") {
+  csrf_development_mode = false;
   app.set("trust proxy", 1); // trust first proxy
   sessionParms.cookie.secure = true; // serve secure cookies
 }
@@ -46,9 +51,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(require("./middleware/storeLocals"));
+
+
+
+app.use(csrf(csrf_development_mode))
+
+const cookieParser = require("cookie-parser");
+app.use(cookieParser(process.env.SESSION_SECRET))
+
+//ROUTES
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+
 app.use("/sessions", require("./routes/sessionRoutes"));
 
 // secret word handling
