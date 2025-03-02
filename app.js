@@ -52,12 +52,10 @@ app.use(passport.session());
 
 app.use(require("./middleware/storeLocals"));
 
-
-
-app.use(csrf(csrf_development_mode))
-
 const cookieParser = require("cookie-parser");
 app.use(cookieParser(process.env.SESSION_SECRET))
+
+app.use(csrf(csrf_development_mode))
 
 //ROUTES
 app.get("/", (req, res) => {
@@ -71,6 +69,7 @@ app.use("/sessions", require("./routes/sessionRoutes"));
 const secretWordRouter = require("./routes/secretWord");
 const auth = require("./middleware/auth");
 app.use("/secretWord", auth, secretWordRouter);
+app.use("/jobs", auth, jobs)
 
 app.use((req, res) => {
   res.status(404).send(`That page (${req.url}) was not found.`);
