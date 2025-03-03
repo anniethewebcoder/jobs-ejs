@@ -6,15 +6,11 @@
     <th>Status</th>
     <th colspan="2"></th>
   </tr>
-  <% if (jobs && jobs.length) { %>
-    <% jobs.forEach((job) => { %>
+
       <tr>
         <td><%= job.company %></td>
         <td><%= job.position %></td>
         <td><%= job.status %></td>
         <td><a href="/jobs/edit/<%= job._id %>"><button type="button">edit</button></a></td>
-        <td><form action="/jobs/delete/<%= job.id %>"><button type="submit">delete</button></form></td>
       </tr>
-    <% }) %>
-  <% } %>
 </table>
