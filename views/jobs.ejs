@@ -13,7 +13,8 @@
         <td><%= job.position %></td>
         <td><%= job.status %></td>
         <td><a href="/jobs/edit/<%= job._id %>"><button type="button">edit</button></a></td>
-        <td><form action="/jobs/delete/<%= job.id %>"><button type="submit">delete</button></form></td>
+        <td><form method="POST" action="/jobs/delete/<%= job.id %>"><button type="submit">delete</button>
+          <input type="hidden" name="_csrf" value="<%= _csrf %>"></form></td>
       </tr>
     <% }) %>
   <% } %>
