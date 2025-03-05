@@ -1,0 +1,55 @@
+<%- include("partials/head.ejs") %> <%- include("partials/header.ejs") %>
+<h2>Jobs List</h2>
+<form method="POST" action="/jobs/update/<%= job.id %>">
+  <table id="jobs-table">
+    <tr id="jobs-table-header">
+      <th>Company</th>
+      <th>Position</th>
+      <th>Status</th>
+      <th colspan="2"></th>
+    </tr>
+
+    <tr>
+      <td>
+        <input
+          type="text"
+          name="company"
+          id="company"
+          value="<%= job.company %>"
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          name="position"
+          id="position"
+          value="<%= job.position %>"
+        />
+      </td>
+      <td>
+        <select name="status" id="status">
+          <% if(job.status == "pending") { %>
+            <option value="pending" selected>PENDING</option>
+            <option value="interview">INTERVIEW</option>
+            <option value="declined">DECLINED</option>
+          <% } else if(job.status == "interview") { %>
+            <option value="pending">PENDING</option>
+            <option value="interview" selected>INTERVIEW</option>
+            <option value="declined">DECLINED</option>
+          <% } else if(jobs.status == "declined") { %>
+            <option value="pending">PENDING</option>
+            <option value="interview">INTERVIEW</option>
+            <option value="declined" selected>DECLINED</option>
+          <% } %>
+        </select>
+      </td>
+      <td>
+        
+          <button type="submit">UPDATE</button>
+        
+      </td>
+    </tr>
+  </table>
+  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>
+<%- include("partials/footer.ejs") %>
