@@ -21,7 +21,7 @@ const createJob = async (req, res) => {
 
   const job = await Job.create(req.body);
 
-  res.render("job", { job: null });
+  res.redirect("/jobs");
 };
 
 const updateJob = async (req, res) => {
@@ -42,8 +42,6 @@ const updateJob = async (req, res) => {
       runValidators: true,
     }
   );
-
-  //   res.render("job", { job, messages: req.flash() });
   res.redirect("/jobs");
 };
 
@@ -51,7 +49,7 @@ const deleteJob = async (req, res) => {
   console.log(req.params.id);
   let token = csrf.token(req, res);
   const job = await Job.findByIdAndDelete(req.params.id);
-  res.render("job", { job, token, messages: req.flash() });
+  res.redirect("/jobs");
 };
 
 module.exports = {

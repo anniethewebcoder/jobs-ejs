@@ -8,10 +8,7 @@
     <th>Status</th>
     <th colspan="2"></th>
   </tr>
-  <a href="/jobs/new">
-    <button type="button">ADD NEW JOB</button>
-  </a>
-  <% if (jobs && jobs.length) { %>
+    <% if (jobs && jobs.length) { %>
     <% jobs.forEach((job) => { %>
       <tr>
         <td><%= job.company %></td>
@@ -27,6 +24,29 @@
       </tr>
     <% }) %>
   <% } %>
+<tr></tr>
+  <form method="POST" action="/jobs">
+    <tr>
+      <td>
+        <input type="text" name="company" id="company" placeholder="ENTER COMPANY" />
+      </td>
+      <td>
+        <input type="text" name="position" id="position" placeholder="ENTER POSITION"/>
+      </td>
+      <td>
+        <select name="status" id="status">
+          <option value="pending">PENDING</option>
+          <option value="interview">INTERVIEW</option>
+          <option value="declined">DECLINED</option>
+        </select>
+      </td>
+      <td></td>
+      <td>
+          <button type="submit">ADD NEW JOB</button>
+      </td>
+    </tr>
+  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>
 </table>
 
 <%- include("partials/footer.ejs") %>
