@@ -1,6 +1,4 @@
-<%- include("partials/head.ejs") %> <%- include("partials/header.ejs") %>
-<h2>Jobs List</h2>
-<form method="POST" action="/jobs/update/<%= job.id %>">
+<form method="POST" action="<%= job ? '/jobs/update/' + job.id : '/jobs' %>">
   <table id="jobs-table">
     <tr id="jobs-table-header">
       <th>Company</th>
@@ -44,12 +42,11 @@
         </select>
       </td>
       <td>
-        
-          <button type="submit">UPDATE</button>
-        
+        <a href="/jobs/edit/<%= job._id %>"
+          ><button type="button">UPDATE</button></a
+        >
       </td>
     </tr>
   </table>
   <input type="hidden" name="_csrf" value="<%= _csrf %>" />
 </form>
-<%- include("partials/footer.ejs") %>
